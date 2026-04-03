@@ -28,6 +28,7 @@
     }
   ],
   "apphosting": {
+    "backendId": "synergy",
     "rootDir": ".",
     "ignore": [
       "node_modules",
