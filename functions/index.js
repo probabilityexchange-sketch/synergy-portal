@@ -5,28 +5,11 @@ const admin = require('firebase-admin');
 
 admin.initializeApp();
 
-// ── Shared CORS helper ──────────────────────────────────────────────────────
-
-const CORS_HEADERS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type',
-};
-
-function handleOptions(req, res) {
-  if (req.method === 'OPTIONS') {
-    res.set(CORS_HEADERS).status(204).send('');
-    return true;
-  }
-  return false;
-}
-
 // ── handleNewLead ───────────────────────────────────────────────────────────
 // Receives lead form submissions → Firestore leads collection
-// Future: SMS to Chris via Twilio
+// Future: SMS to Chris via Twilio (CHRIS_CELL env var, never in source)
 
 exports.handleNewLead = onRequest({ cors: true }, async (req, res) => {
-  if (handleOptions(req, res)) return;
   if (req.method !== 'POST') return res.status(405).send('Method Not Allowed');
 
   const { name, phone, email, service, message, notes, source } = req.body;
@@ -47,7 +30,7 @@ exports.handleNewLead = onRequest({ cors: true }, async (req, res) => {
       status: 'new',
     });
 
-    logger.info('New lead created', { leadId: leadRef.id, name, source });
+    logger.info('New lead created', { leadId: leadRef.id, source });
 
     // TODO (next phase): Send SMS to Chris via Twilio
     // const chris = process.env.CHRIS_CELL;
@@ -64,7 +47,6 @@ exports.handleNewLead = onRequest({ cors: true }, async (req, res) => {
 // Receives email opt-in → Firestore subscribers collection
 
 exports.handleEmailSignup = onRequest({ cors: true }, async (req, res) => {
-  if (handleOptions(req, res)) return;
   if (req.method !== 'POST') return res.status(405).send('Method Not Allowed');
 
   const { email, source } = req.body;
@@ -90,7 +72,7 @@ exports.handleEmailSignup = onRequest({ cors: true }, async (req, res) => {
       });
     }
 
-    logger.info('Email signup', { email, source });
+    logger.info('Email signup', { source });
     res.status(200).json({ success: true });
   } catch (err) {
     logger.error('handleEmailSignup error', err);
@@ -102,14 +84,19 @@ exports.handleEmailSignup = onRequest({ cors: true }, async (req, res) => {
 // Chat widget stub — returns a placeholder reply
 // Replace the body with Claude/OpenAI API call when ready
 
+const MAX_CHAT_MESSAGE_LENGTH = 2000;
+
 exports.handleChat = onRequest({ cors: true }, async (req, res) => {
-  if (handleOptions(req, res)) return;
   if (req.method !== 'POST') return res.status(405).send('Method Not Allowed');
 
   const { message } = req.body;
 
   if (!message || typeof message !== 'string') {
     return res.status(400).json({ error: 'message is required' });
+  }
+
+  if (message.length > MAX_CHAT_MESSAGE_LENGTH) {
+    return res.status(400).json({ error: 'message too long' });
   }
 
   logger.info('Chat message received', { length: message.length });
@@ -129,6 +116,7 @@ exports.handleChat = onRequest({ cors: true }, async (req, res) => {
 // Twilio webhook for inbound calls — ElevenLabs AI voice (DISABLED by default)
 // To enable: set ELEVENLABS_ENABLED=true in Firebase env and point Twilio webhook here.
 // Default behavior: thank the caller and hang up (VOIP handles the actual call).
+// agentId is sourced from server-side env only — never from request input.
 
 exports.handleInboundCall = onRequest({ cors: false }, async (req, res) => {
   const enabled = process.env.ELEVENLABS_ENABLED === 'true';
