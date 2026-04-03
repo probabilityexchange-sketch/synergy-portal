@@ -60,11 +60,11 @@ export default function PageSEO({ title, description, canonical, schema }) {
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       {canonical && <link rel="canonical" href={`https://synergyindustrialsolutions.com${canonical}`} />}
-      {schema && (
-        <script type="application/ld+json">
-          {JSON.stringify(schema)}
+      {schema && (Array.isArray(schema) ? schema : [schema]).map((s, i) => (
+        <script key={i} type="application/ld+json">
+          {JSON.stringify(s)}
         </script>
-      )}
+      ))}
     </Helmet>
   )
 }
