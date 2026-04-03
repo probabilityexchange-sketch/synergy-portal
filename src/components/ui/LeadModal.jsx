@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { X, Send, CheckCircle } from 'lucide-react'
 
 const API_BASE = import.meta.env.VITE_API_BASE || ''
@@ -16,14 +16,39 @@ const SERVICES = [
 export default function LeadModal({ isOpen, onClose, defaultService = '' }) {
   const [form, setForm] = useState({ name: '', phone: '', email: '', service: defaultService, message: '' })
   const [status, setStatus] = useState('idle') // idle | submitting | success | error
+  const dialogRef = useRef(null)
+  const closeButtonRef = useRef(null)
 
-  // Reset form and status each time the modal opens
+  // Reset form and status each time the modal opens; focus first element
   useEffect(() => {
     if (isOpen) {
       setForm({ name: '', phone: '', email: '', service: defaultService, message: '' })
       setStatus('idle')
+      setTimeout(() => closeButtonRef.current?.focus(), 0)
     }
   }, [isOpen, defaultService])
+
+  // Escape key closes modal; focus trap within dialog
+  useEffect(() => {
+    if (!isOpen) return
+    function handleKeyDown(e) {
+      if (e.key === 'Escape') { onClose(); return }
+      if (e.key !== 'Tab') return
+      const focusable = dialogRef.current?.querySelectorAll(
+        'a[href],button:not([disabled]),input,select,textarea,[tabindex]:not([tabindex="-1"])'
+      )
+      if (!focusable || focusable.length === 0) return
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last.focus() }
+      } else {
+        if (document.activeElement === last) { e.preventDefault(); first.focus() }
+      }
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [isOpen, onClose])
 
   if (!isOpen) return null
 
@@ -71,6 +96,7 @@ export default function LeadModal({ isOpen, onClose, defaultService = '' }) {
       aria-modal="true"
       aria-label="Request a Quote"
       aria-describedby="lm-subtitle"
+      ref={dialogRef}
       onClick={(e) => { if (e.target === e.currentTarget) onClose() }}
       style={{
         position: 'fixed',
@@ -95,6 +121,7 @@ export default function LeadModal({ isOpen, onClose, defaultService = '' }) {
       >
         <button
           onClick={onClose}
+          ref={closeButtonRef}
           aria-label="Close"
           style={{
             position: 'absolute',
