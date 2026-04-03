@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom'
 
 export default function Logo({ size = 'md' }) {
-  const heights = { sm: 28, md: 36, lg: 48 }
-  const h = heights[size] || 36
+  // Increased all heights by 20%
+  const heights = { sm: 34, md: 43, lg: 58 }
+  const h = heights[size] || 43
   const textSizes = { sm: '1.1rem', md: '1.4rem', lg: '1.8rem' }
   const fs = textSizes[size] || '1.4rem'
 
@@ -29,8 +30,8 @@ export default function Logo({ size = 'md' }) {
         <circle cx="18" cy="18" r="15" stroke="#F97316" strokeWidth="2.5" fill="none" />
         {/* Inner hub */}
         <circle cx="18" cy="18" r="7" fill="#F97316" />
-        {/* Center bore */}
-        <circle cx="18" cy="18" r="3" fill="var(--color-bg)" />
+        {/* Center bore — transparent */}
+        <circle cx="18" cy="18" r="3" fill="transparent" />
         {/* Gear teeth — 6 teeth evenly spaced */}
         <rect x="16.25" y="1" width="3.5" height="5" rx="1" fill="#F97316" />
         <rect x="16.25" y="30" width="3.5" height="5" rx="1" fill="#F97316" />
