@@ -35,3 +35,8 @@ button {
   cursor: pointer;
   font-family: inherit;
 }
+
+/* Mobile nav hamburger */
+@media (max-width: 768px) {
+  .nav-hamburger { display: flex !important; }
+}

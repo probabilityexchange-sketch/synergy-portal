@@ -52,7 +52,8 @@ export const LOCAL_BUSINESS_SCHEMA = {
 }
 
 export default function PageSEO({ title, description, canonical, schema }) {
-  const fullTitle = title.includes('Synergy') ? title : `${title} | Synergy Industrial Solutions`
+  const safeTitle = title || 'Synergy Industrial Solutions'
+  const fullTitle = safeTitle.includes('Synergy') ? safeTitle : `${safeTitle} | Synergy Industrial Solutions`
 
   return (
     <Helmet>
