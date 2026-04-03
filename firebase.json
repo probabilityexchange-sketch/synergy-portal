@@ -26,5 +26,16 @@
       ],
       "predeploy": []
     }
-  ]
+  ],
+  "apphosting": {
+    "backendId": "synergy",
+    "rootDir": ".",
+    "ignore": [
+      "node_modules",
+      ".git",
+      "firebase-debug.log",
+      "firebase-debug.*.log",
+      "functions"
+    ]
+  }
 }
