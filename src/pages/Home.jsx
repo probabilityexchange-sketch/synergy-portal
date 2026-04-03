@@ -1,134 +1,176 @@
-import { Helmet } from 'react-helmet-async';
-import { Phone, Calendar, ClipboardList, Wrench, Cpu, Activity, Mail } from 'lucide-react';
-import { Link } from 'react-router-dom';
+// src/pages/Home.jsx
+import { Phone, Wrench, Cpu, Activity, Zap, Settings, ShoppingCart, MapPin, ArrowRight } from 'lucide-react'
+import PageSEO, { LOCAL_BUSINESS_SCHEMA } from '../components/seo/PageSEO'
+import EmailSignup from '../components/ui/EmailSignup'
 
-export default function Home() {
+const HERO_SCHEMA = {
+  ...LOCAL_BUSINESS_SCHEMA,
+  '@type': ['LocalBusiness', 'AutoRepair'],
+  sameAs: ['https://synergyindustrialsolutions.com'],
+}
+
+const SERVICES = [
+  { icon: <Wrench size={32} strokeWidth={2} />, name: 'Electric Motor Rewind', desc: 'AC and DC motors of all HP ranges rewound to OEM spec. Custom stator work available.' },
+  { icon: <Activity size={32} strokeWidth={2} />, name: 'Servo Motor Repair', desc: 'Encoder replacement, precision alignment, and full diagnostics on all major brands.' },
+  { icon: <Cpu size={32} strokeWidth={2} />, name: 'AC/DC Drive Repair', desc: 'Component-level VFD and servo drive repair — Siemens, ABB, Allen-Bradley, Yaskawa.' },
+  { icon: <Settings size={32} strokeWidth={2} />, name: 'PLC Repair', desc: 'Allen-Bradley, Siemens, Mitsubishi, and Omron PLC board-level diagnostics and repair.' },
+  { icon: <ShoppingCart size={32} strokeWidth={2} />, name: 'New Motor Sales', desc: 'Sourcing and drop-shipping of new motors and drives from leading manufacturers.' },
+  { icon: <Zap size={32} strokeWidth={2} />, name: 'Electronics Repair', desc: 'Component-level PCB repair for industrial control boards and drive electronics.' },
+]
+
+const BRANDS = ['SIEMENS', 'ABB', 'Schneider Electric', 'FANUC', 'YASKAWA', 'Allen-Bradley']
+
+const WHY = [
+  { icon: <Activity size={28} />, title: 'Fast Turnaround', body: 'Most standard rewinds completed within 5–7 business days. Rush service available.' },
+  { icon: <MapPin size={28} />, title: 'Pickup & Delivery', body: 'We come to you — free pickup and delivery within 100 miles of Stevenson, AL.' },
+  { icon: <Cpu size={28} />, title: 'Expert Diagnostics', body: 'Component-level troubleshooting with state-of-the-art test equipment. No guess work.' },
+]
+
+const CITIES = ['Chattanooga, TN', 'Scottsboro, AL', 'Huntsville, AL', 'Fort Payne, AL', 'Gadsden, AL', 'Dalton, GA', 'Rome, GA', 'Cleveland, TN', 'Athens, TN', 'Guntersville, AL']
+
+export default function Home({ onQuoteClick }) {
+  const s = {
+    section: { padding: '5rem 5%', maxWidth: '1400px', margin: '0 auto' },
+    h2: { fontSize: '2.25rem', fontWeight: 800, color: 'var(--color-text)', marginBottom: '1rem', letterSpacing: '-0.02em' },
+    muted: { color: 'var(--color-text-muted)', lineHeight: 1.7 },
+  }
+
   return (
-    <div style={{ fontFamily: 'Inter, system-ui, sans-serif', color: '#1e293b', margin: 0, padding: 0 }}>
-      <Helmet>
-        <title>Synergy Industrial Solutions | Precision Motor Rewinding & VFD Repair</title>
-        <meta name="description" content="The Future of Industrial Repair Management. Specialized in precision motor rewinding, industrial electronics, VFD repair, and servo & robotics diagnostics." />
-        {/* Basic SEO Schema Markup for Local Business */}
-        <script type="application/ld+json">
-          {`
-            {
-              "@context": "https://schema.org",
-              "@type": "LocalBusiness",
-              "name": "Synergy Industrial Solutions",
-              "image": "",
-              "@id": "",
-              "url": "https://synergyindustrialsolutions.com",
-              "telephone": "+18005550199",
-              "priceRange": "$$",
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "123 Industrial Parkway",
-                "addressLocality": "Manufacturing City",
-                "addressRegion": "ST",
-                "postalCode": "12345",
-                "addressCountry": "US"
-              }  
-            }
-          `}
-        </script>
-      </Helmet>
-      
-      {/* Modern Top Navigation - Cleaned up Logo Design */}
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1.25rem 5%', backgroundColor: '#ffffff', borderBottom: '1px solid #e2e8f0', position: 'sticky', top: 0, zIndex: 10 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <Activity size={32} color="#f97316" strokeWidth={2.5} />
-          <span style={{ fontSize: '1.5rem', fontWeight: '800', letterSpacing: '-0.025em', color: '#0f172a' }}>
-            Synergy <span style={{ color: '#f97316', fontWeight: '600' }}>Industrial</span>
+    <>
+      <PageSEO
+        title="Electric Motor Rewind & Industrial Repair — Stevenson AL | Synergy Industrial"
+        description="Expert electric motor rewind, servo motor repair, AC/DC drive repair, and PLC repair serving Chattanooga TN, North Alabama, and NW Georgia. Pickup within 100 miles."
+        canonical="/"
+        schema={HERO_SCHEMA}
+      />
+
+      {/* ── Hero ── */}
+      <section
+        style={{
+          backgroundColor: 'var(--color-dark-hero)',
+          padding: '6rem 5%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <div style={{ maxWidth: '1400px', width: '100%' }}>
+          <div style={{ display: 'inline-block', backgroundColor: 'rgba(249,115,22,0.15)', color: 'var(--color-accent)', borderRadius: '2rem', padding: '0.35rem 1rem', fontSize: '0.85rem', fontWeight: 700, letterSpacing: '0.05em', marginBottom: '1.5rem' }}>
+            Serving Chattanooga TN · North Alabama · NW Georgia
+          </div>
+          <h1 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: 900, color: '#F1F5F9', lineHeight: 1.1, letterSpacing: '-0.03em', marginBottom: '1.5rem', maxWidth: '800px' }}>
+            Expert Motor Rewind &<br />
+            <span style={{ color: 'var(--color-accent)' }}>Industrial Electronics</span> Repair
+          </h1>
+          <p style={{ fontSize: '1.2rem', color: '#94A3B8', maxWidth: '600px', lineHeight: 1.7, marginBottom: '2.5rem' }}>
+            Precision motor rewind, servo repair, VFD diagnostics, and PLC repair — with free pickup and delivery within 100 miles of Stevenson, AL.
+          </p>
+          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+            <a
+              href="tel:+18772599187"
+              style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.9rem 1.75rem', borderRadius: '0.5rem', backgroundColor: 'var(--color-accent)', color: '#fff', fontWeight: 700, fontSize: '1.05rem', textDecoration: 'none' }}
+            >
+              <Phone size={18} /> Call (877) 259-9187
+            </a>
+            <button
+              onClick={onQuoteClick}
+              style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.9rem 1.75rem', borderRadius: '0.5rem', backgroundColor: 'transparent', border: '2px solid #334155', color: '#F1F5F9', fontWeight: 700, fontSize: '1.05rem' }}
+            >
+              Get a Free Quote <ArrowRight size={18} />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Trust Bar ── */}
+      <div style={{ backgroundColor: 'var(--color-bg-secondary)', borderBottom: '1px solid var(--color-border)', padding: '1.5rem 5%' }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', alignItems: 'center', gap: '2rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', letterSpacing: '0.1em', textTransform: 'uppercase', flexShrink: 0 }}>We service:</span>
+          {BRANDS.map(b => (
+            <span key={b} style={{ fontSize: '0.9rem', fontWeight: 800, color: 'var(--color-text-muted)', letterSpacing: '0.05em', textTransform: 'uppercase' }}>{b}</span>
+          ))}
+          <span style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', fontWeight: 700, color: 'var(--color-accent)' }}>
+            <MapPin size={14} /> 100-Mile Pickup & Delivery
           </span>
         </div>
-        
-        <nav style={{ display: 'flex', gap: '2rem', fontSize: '1rem', fontWeight: '600', color: '#475569' }}>
-          <a href="#services" style={{ textDecoration: 'none', color: 'inherit', transition: 'color 0.2s' }}>Services</a>
-          <a href="#features" style={{ textDecoration: 'none', color: 'inherit', transition: 'color 0.2s' }}>Features</a>
-          <a href="#case-studies" style={{ textDecoration: 'none', color: 'inherit', transition: 'color 0.2s' }}>Case Studies</a>
-          <Link to="/dashboard" style={{ textDecoration: 'none', color: 'inherit', transition: 'color 0.2s' }}>Client Portal</Link>
-        </nav>
-        
-        <div style={{ display: 'flex', gap: '1rem' }}>
-          {/* CTA 1: Direct Call Mobile Optimized */}
-          <a href="tel:+18005550199" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.6rem 1.25rem', borderRadius: '0.375rem', fontWeight: '700', color: '#0f172a', border: '2px solid #e2e8f0', textDecoration: 'none', transition: 'all 0.2s' }}>
-            <Phone size={18} /> (800) 555-0199
-          </a>
-          {/* CTA 2: Request a Quote */}
-          <button style={{ padding: '0.6rem 1.25rem', borderRadius: '0.375rem', fontWeight: '700', backgroundColor: '#f97316', color: '#fff', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem', transition: 'all 0.2s' }}>
-            <ClipboardList size={18} /> Request Quote
-          </button>
-        </div>
-      </header>
+      </div>
 
-      {/* Hero Section */}
-      <section style={{ padding: '6rem 5%', backgroundColor: '#f8fafc', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
-        <div style={{ maxWidth: '800px', zIndex: 2 }}>
-          <h1 style={{ fontSize: '4.5rem', fontWeight: '900', lineHeight: '1.05', color: '#0f172a', marginBottom: '1.5rem', letterSpacing: '-0.025em' }}>
-            The Future of <br/> Industrial Repair.
-          </h1>
-          <p style={{ fontSize: '1.25rem', color: '#475569', margin: '0 auto 3rem auto', lineHeight: '1.6', maxWidth: '650px' }}>
-            Minimize downtime and maximize reliability with our advanced diagnostic suite and precision repair services. Talk to our AI assistant instantly or schedule a diagnostic to keep operations moving.
-          </p>
-          
-          <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center' }}>
-            {/* CTA 3: Schedule Diagnostic */}
-            <button style={{ padding: '1rem 2rem', fontSize: '1.125rem', borderRadius: '0.5rem', fontWeight: '700', backgroundColor: '#f97316', color: '#fff', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem', boxShadow: '0 4px 14px 0 rgba(249, 115, 22, 0.39)' }}>
-              <Calendar size={20} /> Schedule Diagnostic
-            </button>
-            <a href="tel:+18005550199" style={{ padding: '1rem 2rem', fontSize: '1.125rem', borderRadius: '0.5rem', fontWeight: '700', backgroundColor: '#fff', color: '#0f172a', border: '2px solid #e2e8f0', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
-              <Phone size={20} /> Call Now (AI Answer)
-            </a>
-          </div>
-        </div>
-        {/* Abstract background elements */}
-        <div style={{ position: 'absolute', top: '-10%', right: '-5%', width: '400px', height: '400px', background: 'radial-gradient(circle, rgba(249,115,22,0.15) 0%, rgba(249,115,22,0) 70%)', borderRadius: '50%', zIndex: 1 }}></div>
-      </section>
-
-      {/* Services Features */}
-      <section id="services" style={{ padding: '5rem 5%', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem', maxWidth: '1400px', margin: '0 auto' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', padding: '2rem', backgroundColor: '#fff', borderRadius: '1rem', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)' }}>
-          <div style={{ color: '#f97316', padding: '1rem', backgroundColor: '#fff7ed', borderRadius: '0.75rem', width: 'fit-content' }}><Wrench size={40} strokeWidth={2} /></div>
-          <h3 style={{ fontSize: '1.5rem', fontWeight: '800', color: '#0f172a' }}>Precision Motor Rewinding</h3>
-          <p style={{ color: '#475569', lineHeight: '1.6', fontSize: '1.1rem' }}>Expert precision motor rewinding ensuring unparalleled reliability for all specialized and custom stator projects.</p>
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', padding: '2rem', backgroundColor: '#fff', borderRadius: '1rem', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)' }}>
-          <div style={{ color: '#f97316', padding: '1rem', backgroundColor: '#fff7ed', borderRadius: '0.75rem', width: 'fit-content' }}><Cpu size={40} strokeWidth={2} /></div>
-          <h3 style={{ fontSize: '1.5rem', fontWeight: '800', color: '#0f172a' }}>Electronics & VFD Repair</h3>
-          <p style={{ color: '#475569', lineHeight: '1.6', fontSize: '1.1rem' }}>Comprehensive component-level repair for variable frequency drives, PLCs, and critical industrial electronics.</p>
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', padding: '2rem', backgroundColor: '#fff', borderRadius: '1rem', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)' }}>
-          <div style={{ color: '#f97316', padding: '1rem', backgroundColor: '#fff7ed', borderRadius: '0.75rem', width: 'fit-content' }}><Activity size={40} strokeWidth={2} /></div>
-          <h3 style={{ fontSize: '1.5rem', fontWeight: '800', color: '#0f172a' }}>Servo & Robotics Suite</h3>
-          <p style={{ color: '#475569', lineHeight: '1.6', fontSize: '1.1rem' }}>State-of-the-art diagnostic and repair capabilities for servo motors and automated robotic manufacturing systems.</p>
-        </div>
-      </section>
-
-      {/* Lead Generation & Newsletter Section */}
-      <section style={{ padding: '5rem 5%', backgroundColor: '#0f172a', color: '#fff', textAlign: 'center' }}>
-        <h2 style={{ fontSize: '2.5rem', fontWeight: '800', marginBottom: '1rem' }}>Stay Ahead of Downtime.</h2>
-        <p style={{ fontSize: '1.125rem', color: '#94a3b8', marginBottom: '2.5rem', maxWidth: '600px', margin: '0 auto 2.5rem auto' }}>
-          Subscribe to our technical newsletter for maintenance tips, case studies, and insights from our top diagnostic engineers.
+      {/* ── Services Overview ── */}
+      <div style={{ ...s.section }}>
+        <h2 style={{ ...s.h2, textAlign: 'center' }}>Industrial Repair Services</h2>
+        <p style={{ ...s.muted, textAlign: 'center', maxWidth: '600px', margin: '0 auto 3rem' }}>
+          From single-phase fractional motors to large industrial servo systems — we repair, rewind, and restore.
         </p>
-        <form style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center', maxWidth: '500px', margin: '0 auto' }} onSubmit={(e) => { e.preventDefault(); alert('Subscribed and synced to CRM!'); }}>
-          <div style={{ position: 'relative', flexGrow: 1 }}>
-            <Mail size={20} color="#94a3b8" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }} />
-            <input type="email" placeholder="Enter your email address" required style={{ width: '100%', padding: '1rem 1rem 1rem 3rem', borderRadius: '0.5rem', border: 'none', fontSize: '1rem', outline: 'none' }} />
-          </div>
-          <button type="submit" style={{ padding: '1rem 2rem', fontSize: '1rem', borderRadius: '0.5rem', fontWeight: '700', backgroundColor: '#f97316', color: '#fff', border: 'none', cursor: 'pointer' }}>
-            Subscribe
-          </button>
-        </form>
-      </section>
-      
-      {/* Footer */}
-      <footer style={{ padding: '2rem 5%', backgroundColor: '#020617', color: '#64748b', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <p>© 2026 Synergy Industrial Solutions. All rights reserved.</p>
-        <div style={{ display: 'flex', gap: '1rem' }}>
-          <a href="#" style={{ color: '#64748b', textDecoration: 'none' }}>Privacy Policy</a>
-          <a href="#" style={{ color: '#64748b', textDecoration: 'none' }}>Terms of Service</a>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
+          {SERVICES.map(({ icon, name, desc }) => (
+            <div
+              key={name}
+              style={{ padding: '1.75rem', backgroundColor: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: '0.75rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}
+            >
+              <div style={{ color: 'var(--color-accent)', backgroundColor: 'rgba(249,115,22,0.1)', padding: '0.75rem', borderRadius: '0.5rem', width: 'fit-content' }}>
+                {icon}
+              </div>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--color-text)' }}>{name}</h3>
+              <p style={{ ...s.muted, fontSize: '0.95rem', flexGrow: 1 }}>{desc}</p>
+            </div>
+          ))}
         </div>
-      </footer>
-    </div>
-  );
+      </div>
+
+      {/* ── Why Choose Synergy ── */}
+      <div style={{ backgroundColor: 'var(--color-bg-secondary)', padding: '5rem 5%' }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+          <h2 style={{ ...s.h2, textAlign: 'center' }}>Why Choose Synergy?</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '2rem', marginTop: '2.5rem' }}>
+            {WHY.map(({ icon, title, body }) => (
+              <div key={title} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '1rem', padding: '2rem' }}>
+                <div style={{ color: 'var(--color-accent)' }}>{icon}</div>
+                <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--color-text)' }}>{title}</h3>
+                <p style={{ ...s.muted, fontSize: '0.95rem' }}>{body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── Service Area Callout ── */}
+      <div style={{ ...s.section }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '3rem', alignItems: 'center' }}>
+          <div>
+            <h2 style={s.h2}>Serving Chattanooga & Beyond</h2>
+            <p style={{ ...s.muted, marginBottom: '1.5rem' }}>
+              We provide free pickup and delivery within 100 miles of our Stevenson, AL shop — covering the greater Chattanooga metro, North Alabama, and Northwest Georgia.
+            </p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1.5rem' }}>
+              {CITIES.map(c => (
+                <span key={c} style={{ padding: '0.3rem 0.75rem', backgroundColor: 'var(--color-bg-secondary)', border: '1px solid var(--color-border)', borderRadius: '2rem', fontSize: '0.85rem', color: 'var(--color-text-muted)', fontWeight: 600 }}>
+                  {c}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div style={{ backgroundColor: 'var(--color-bg-secondary)', border: '1px solid var(--color-border)', borderRadius: '0.75rem', padding: '2rem', textAlign: 'center', aspectRatio: '4/3', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div>
+              <MapPin size={48} color="var(--color-accent)" style={{ margin: '0 auto 1rem' }} />
+              <p style={{ fontWeight: 700, color: 'var(--color-text)', marginBottom: '0.5rem' }}>Stevenson, AL 35772</p>
+              <p style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>100-mile service radius</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Email Opt-In ── */}
+      <div style={{ backgroundColor: 'var(--color-dark-hero)', padding: '5rem 5%', textAlign: 'center' }}>
+        <div style={{ maxWidth: '600px', margin: '0 auto' }}>
+          <h2 style={{ fontSize: '2rem', fontWeight: 800, color: '#F1F5F9', marginBottom: '0.75rem' }}>
+            Stay Ahead of Downtime
+          </h2>
+          <p style={{ color: '#94A3B8', marginBottom: '2rem', lineHeight: 1.7 }}>
+            Subscribe for maintenance tips, priority scheduling alerts, and case studies from our shop.
+          </p>
+          <EmailSignup source="homepage" dark />
+        </div>
+      </div>
+    </>
+  )
 }
