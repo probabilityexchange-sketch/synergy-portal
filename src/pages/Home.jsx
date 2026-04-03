@@ -117,9 +117,8 @@ export default function Home({ onQuoteClick }) {
             Chattanooga TN · North Alabama · NW Georgia
           </div>
           <h1 style={{ fontSize: 'clamp(3rem, 5.5vw, 5.5rem)', color: '#F1F5F9', lineHeight: 1, marginBottom: '1.5rem', letterSpacing: '0.03em' }}>
-            Expert Motor Rewind &{' '}
-            <span style={{ color: 'var(--color-accent)' }}>Industrial Electronics</span>{' '}
-            Repair
+            When Your Motor Fails,{' '}
+            <span style={{ color: 'var(--color-accent)' }}>We Fix It Fast</span>
           </h1>
           <p style={{ fontSize: '1.15rem', color: '#94A3B8', maxWidth: '520px', lineHeight: 1.75, marginBottom: '1rem' }}>
             Precision motor rewind, servo repair, VFD diagnostics, and PLC repair — with free pickup and delivery within 100 miles of Stevenson, AL.
@@ -143,18 +142,48 @@ export default function Home({ onQuoteClick }) {
           </div>
         </div>
         <div>
-          <PHOTO_PLACEHOLDER label="Shop interior or motor repair in progress" aspect="4/3" />
+          <img
+            src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1200"
+            alt="Synergy Industrial Solutions shop — industrial repair workshop"
+            style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '0.75rem' }}
+          />
         </div>
       </section>
 
+      {/* ── Emergency CTA Strip ── */}
+      <div style={{ backgroundColor: '#C2410C', padding: '1rem 5%', textAlign: 'center' }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+          <span style={{ color: '#fff', fontWeight: 700, fontSize: '1rem', letterSpacing: '0.02em' }}>
+            🔧 Critical Downtime? Call now for same-day pickup.
+          </span>
+          <a
+            href="tel:+18772599187"
+            style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.6rem 1.25rem', borderRadius: '0.4rem', backgroundColor: '#fff', color: '#C2410C', fontWeight: 800, fontSize: '1rem', textDecoration: 'none' }}
+          >
+            <Phone size={16} /> (877) 259-9187
+          </a>
+        </div>
+      </div>
+
       {/* ── Trust Bar ── */}
-      <div style={{ backgroundColor: 'var(--color-bg-secondary)', borderBottom: '1px solid var(--color-border)', padding: '1.5rem 5%' }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', alignItems: 'center', gap: '2rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-          <span style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--color-text-muted)', letterSpacing: '0.1em', textTransform: 'uppercase', flexShrink: 0 }}>We service:</span>
-          {BRANDS.map(b => (
-            <span key={b} style={{ fontSize: '0.85rem', fontWeight: 800, color: 'var(--color-text-muted)', letterSpacing: '0.05em', textTransform: 'uppercase' }}>{b}</span>
-          ))}
-          <span style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', fontWeight: 700, color: 'var(--color-accent)' }}>
+      <div style={{ backgroundColor: 'var(--color-bg-secondary)', borderBottom: '1px solid var(--color-border)', padding: '1.75rem 5%' }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', alignItems: 'center', gap: '3rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.15rem' }}>
+            <span style={{ fontSize: '2.25rem', fontFamily: "'Bebas Neue', sans-serif", color: 'var(--color-accent)', lineHeight: 1 }}>20+</span>
+            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Years in Business</span>
+          </div>
+          <div style={{ width: '1px', height: '40px', backgroundColor: 'var(--color-border)' }} />
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.15rem' }}>
+            <span style={{ fontSize: '2.25rem', fontFamily: "'Bebas Neue', sans-serif", color: 'var(--color-accent)', lineHeight: 1 }}>2,500+</span>
+            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Motors Repaired</span>
+          </div>
+          <div style={{ width: '1px', height: '40px', backgroundColor: 'var(--color-border)' }} />
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.15rem' }}>
+            <span style={{ fontSize: '2.25rem', fontFamily: "'Bebas Neue', sans-serif", color: 'var(--color-accent)', lineHeight: 1 }}>5</span>
+            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Industries Served</span>
+          </div>
+          <div style={{ width: '1px', height: '40px', backgroundColor: 'var(--color-border)' }} />
+          <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', fontWeight: 700, color: 'var(--color-accent)' }}>
             <MapPin size={14} /> 100-Mile Free Pickup & Delivery
           </span>
         </div>
@@ -257,7 +286,11 @@ export default function Home({ onQuoteClick }) {
               ))}
             </div>
           </div>
-          <PHOTO_PLACEHOLDER label="Motor rewind in progress — stator or winding work" aspect="4/3" />
+          <img
+            src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=800"
+            alt="Motor rewind in progress — technician rewinding stator"
+            style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '0.75rem' }}
+          />
         </div>
       </div>
 
@@ -326,8 +359,8 @@ export default function Home({ onQuoteClick }) {
           </div>
           <div style={{ borderRadius: '0.75rem', overflow: 'hidden', border: '1px solid var(--color-border)', aspectRatio: '4/3' }}>
             <iframe
-              title="Synergy Industrial Solutions location"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3270.5!2d-85.8455!3d34.8687!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzTCsDUyJzA3LjMiTiA4NcKwNTAnNDMuOCJX!5e0!3m2!1sen!2sus!4v1700000000000"
+              title="Synergy Industrial Solutions location — Stevenson, AL"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3328.8!2d-85.6947!3d34.6957!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzTCsDQxJzQ1LjAiTiA4NcKwNDEnNDMuOCJX!5e0!3m2!1sen!2sus!4v1700000000000"
               width="100%"
               height="100%"
               style={{ border: 0, display: 'block' }}

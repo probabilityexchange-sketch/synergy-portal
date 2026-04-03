@@ -12,11 +12,11 @@ export default function Logo({ size = 'md' }) {
       style={{
         display: 'flex',
         alignItems: 'center',
-        gap: '0.6rem',
+        gap: '0.65rem',
         textDecoration: 'none',
       }}
     >
-      {/* 6-axis robot arm SVG */}
+      {/* Electric motor / gear icon */}
       <svg
         width={h}
         height={h}
@@ -25,24 +25,38 @@ export default function Logo({ size = 'md' }) {
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
       >
-        {/* Base plate */}
-        <rect x="2" y="32" width="18" height="3" rx="1.5" fill="#F97316" />
-        {/* Column */}
-        <rect x="7" y="21" width="6" height="12" rx="2" fill="#F97316" />
-        {/* Shoulder joint */}
-        <circle cx="10" cy="21" r="4" fill="#F97316" />
-        {/* Upper arm */}
-        <line x1="10" y1="21" x2="6" y2="11" stroke="#F97316" strokeWidth="4.5" strokeLinecap="round" />
-        {/* Elbow joint */}
-        <circle cx="6" cy="11" r="3.5" fill="#F97316" />
-        {/* Forearm */}
-        <line x1="6" y1="11" x2="24" y2="7" stroke="#F97316" strokeWidth="3.5" strokeLinecap="round" />
-        {/* Wrist joint */}
-        <circle cx="24" cy="7" r="3" fill="#F97316" />
-        {/* Gripper upper jaw */}
-        <line x1="24" y1="7" x2="33" y2="3" stroke="#F97316" strokeWidth="2.5" strokeLinecap="round" />
-        {/* Gripper lower jaw */}
-        <line x1="24" y1="7" x2="33" y2="11" stroke="#F97316" strokeWidth="2.5" strokeLinecap="round" />
+        {/* Outer gear ring */}
+        <circle cx="18" cy="18" r="15" stroke="#F97316" strokeWidth="2.5" fill="none" />
+        {/* Inner hub */}
+        <circle cx="18" cy="18" r="7" fill="#F97316" />
+        {/* Center bore */}
+        <circle cx="18" cy="18" r="3" fill="var(--color-bg)" />
+        {/* Gear teeth — 6 teeth evenly spaced */}
+        <rect x="16.25" y="1" width="3.5" height="5" rx="1" fill="#F97316" />
+        <rect x="16.25" y="30" width="3.5" height="5" rx="1" fill="#F97316" />
+        <rect x="1" y="16.25" width="5" height="3.5" rx="1" fill="#F97316" />
+        <rect x="30" y="16.25" width="5" height="3.5" rx="1" fill="#F97316" />
+        {/* Diagonal teeth */}
+        <rect
+          x="26.5" y="4.5" width="3.5" height="5" rx="1"
+          fill="#F97316"
+          transform="rotate(60 28.25 7)"
+        />
+        <rect
+          x="26.5" y="4.5" width="3.5" height="5" rx="1"
+          fill="#F97316"
+          transform="rotate(-60 28.25 7)"
+        />
+        <rect
+          x="6" y="26.5" width="3.5" height="5" rx="1"
+          fill="#F97316"
+          transform="rotate(60 7.75 29)"
+        />
+        <rect
+          x="6" y="26.5" width="3.5" height="5" rx="1"
+          fill="#F97316"
+          transform="rotate(-60 7.75 29)"
+        />
       </svg>
 
       {/* Wordmark */}

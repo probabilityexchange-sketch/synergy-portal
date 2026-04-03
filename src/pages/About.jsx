@@ -65,9 +65,12 @@ export default function About({ onQuoteClick }) {
           </p>
         </div>
 
-        <div style={{ backgroundColor: 'var(--color-bg-secondary)', border: '2px dashed var(--color-border)', borderRadius: '0.75rem', aspectRatio: '4/3', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: '0.75rem', color: 'var(--color-text-muted)' }}>
-          <div style={{ fontSize: '2.5rem' }}>📷</div>
-          <p style={{ fontSize: '0.875rem', fontWeight: 600 }}>Shop photo coming soon</p>
+        <div style={{ borderRadius: '0.75rem', overflow: 'hidden', aspectRatio: '4/3' }}>
+          <img
+            src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800"
+            alt="Synergy Industrial Solutions shop interior — motor repair equipment"
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
         </div>
       </div>
 
