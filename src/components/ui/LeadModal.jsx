@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { X, Send, CheckCircle } from 'lucide-react'
 
 const API_BASE = import.meta.env.VITE_API_BASE || ''
@@ -16,6 +16,14 @@ const SERVICES = [
 export default function LeadModal({ isOpen, onClose, defaultService = '' }) {
   const [form, setForm] = useState({ name: '', phone: '', email: '', service: defaultService, message: '' })
   const [status, setStatus] = useState('idle') // idle | submitting | success | error
+
+  // Reset form and status each time the modal opens
+  useEffect(() => {
+    if (isOpen) {
+      setForm({ name: '', phone: '', email: '', service: defaultService, message: '' })
+      setStatus('idle')
+    }
+  }, [isOpen, defaultService])
 
   if (!isOpen) return null
 
@@ -62,6 +70,7 @@ export default function LeadModal({ isOpen, onClose, defaultService = '' }) {
       role="dialog"
       aria-modal="true"
       aria-label="Request a Quote"
+      aria-describedby="lm-subtitle"
       onClick={(e) => { if (e.target === e.currentTarget) onClose() }}
       style={{
         position: 'fixed',
@@ -70,7 +79,7 @@ export default function LeadModal({ isOpen, onClose, defaultService = '' }) {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        zIndex: 999,
+        zIndex: 1100,
         padding: '1rem',
       }}
     >
@@ -114,7 +123,7 @@ export default function LeadModal({ isOpen, onClose, defaultService = '' }) {
             <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--color-text)', marginBottom: '0.25rem' }}>
               Request a Quote
             </h2>
-            <p style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)', marginBottom: '1.5rem' }}>
+            <p id="lm-subtitle" style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)', marginBottom: '1.5rem' }}>
               We respond within 1 business hour.
             </p>
 
