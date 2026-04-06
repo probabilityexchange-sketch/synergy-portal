@@ -1,5 +1,6 @@
 // src/pages/ServiceLocation.jsx
 import { useParams } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import { Phone, Wrench, Cpu, Activity, Settings, ShoppingCart, Zap, Clock, MapPin, Shield, Truck } from 'lucide-react'
 
 // City data - population and metro info
@@ -101,6 +102,11 @@ export default function ServiceLocation({ onQuoteClick }) {
 
   return (
     <div className="service-location-page">
+      <Helmet>
+        <title>{serviceData.name} in {cityData.name}, {cityData.state} | Synergy Industrial Solutions</title>
+        <meta name="description" content={`Expert ${serviceData.name.toLowerCase()} in ${cityData.name}, ${cityData.state}. ${cityData.metro} metro area. 24-hour rush service available. Call Synergy Industrial today at (256) 594-6877.`} />
+        <link rel="canonical" href={`https://synergyindsolutions.com/${service}/${city}`} />
+      </Helmet>
       {/* Hero Section */}
       <section className="hero" style={{ 
         background: 'linear-gradient(135deg, #1e3a5f 0%, #0f2744 100%)',
